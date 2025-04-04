@@ -1,0 +1,48 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5439/messagesdb
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+logging:
+  level:
+    root: INFO
+    com.example.demo: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    loggers:
+      enabled: true
+
+gcp:
+  secret:
+    # RSA keys
+    jwt-private-key: "projects/940564616398/secrets/jwt-private-key/versions/latest"
+    jwt-public-key:  "projects/940564616398/secrets/jwt-public-key/versions/latest"
+
+jwt:
+  expiration-ms: 86400000
